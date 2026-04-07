@@ -1,20 +1,20 @@
 [
     {
-        "title": "Telegram的AI悄然重写你的政治观点。我提取了证据",
-        "summary": "揭示了Telegram AI如何影响用户政治观点的算法和机制。",
-        "article": "本文深入探讨了Telegram AI如何通过系统提示模型无声地修改用户的政治观点，揭示了这一现象的技术细节和潜在影响。",
-        "url": "https://medium.com/@metraoklam/extracting-system-prompt-model-identity-from-telegrams-ai-feature-its-qwen-3-5-5a6204c9d76a"
+        "title": "Razor 1911：2026年DemoParty的革新之作",
+        "summary": "Razor 1911在2026年DemoParty中荣获第一，其底层逻辑为革命性的图形渲染技术。",
+        "article": "Razor 1911的底层逻辑基于全新的图形渲染技术，它通过利用GPU的并行处理能力，实现了前所未有的图形渲染速度和效果。这种技术通过优化渲染管线，减少了渲染过程中的等待时间，使得画面更加流畅，细节更加丰富。对当前行业现状的颠覆性影响体现在，它使得游戏和动画制作等领域可以以前所未有的速度和精度进行创作，从而降低了制作成本，提高了效率。在未来，Razor 1911有望改变普通人的生活，使得高质量的游戏和动画更加普及，为大众提供更加沉浸式的娱乐体验。",
+        "url": "https://www.youtube.com/watch?v=2AnbYNudAyM"
     },
     {
-        "title": "LLM可能正在标准化人类表达——并微妙地影响我们的思考方式",
-        "summary": "大型语言模型（LLM）如何影响人类表达和思维方式的探讨。",
-        "article": "本文分析了大型语言模型对人类表达和思维方式的影响，探讨了LLM如何标准化语言使用，以及这种标准化可能带来的社会影响。",
-        "url": "https://dornsife.usc.edu/news/stories/ai-may-be-making-us-think-and-write-more-alike/"
+        "title": "FREDCode：宏观研究领域的AI新利器",
+        "summary": "FREDCode通过Claude AI赋能，为宏观研究提供强大的数据分析和预测能力。",
+        "article": "FREDCode的底层逻辑是结合了Claude AI的强大数据处理能力和宏观研究的专业知识。它能够快速处理和分析大量数据，提供深入的洞察和预测。这种技术对当前行业现状的颠覆性影响在于，它使得宏观研究不再依赖于大量人力，而是可以通过AI实现自动化和智能化。在未来，FREDCode有望改变普通人的生活，通过提供更准确的宏观经济预测，帮助个人和企业做出更明智的决策。",
+        "url": "https://www.modolap.com/publication/fred-1#"
     },
     {
-        "title": "Modolap – Codex-Native OLAP服务",
-        "summary": "介绍了一种基于Codex的在线分析处理（OLAP）服务。",
-        "article": "Modolap是一个创新的OLAP服务，它利用Codex技术提供高效的数据分析和报告功能，为用户提供了一种全新的数据处理体验。",
-        "url": "https://www.modolap.com"
+        "title": "AI公司克隆音乐家声音，引发版权争议",
+        "summary": "AI公司通过克隆音乐家声音，引发版权和原创性的重大争议。",
+        "article": "该技术的底层逻辑是利用深度学习算法，分析音乐家的声音特征，并生成相似的声音。这种技术对当前行业现状的颠覆性影响在于，它挑战了音乐版权和原创性的界限。在未来，这种技术可能会改变普通人的生活，一方面，它可能为音乐创作带来新的可能性，另一方面，也可能引发关于知识产权和原创性的广泛讨论。",
+        "url": "https://rudevulture.com/ai-company-clones-musicians-voice-then-copyright-strikes-her-own-songs/"
     }
 ]

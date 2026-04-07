@@ -8,83 +8,51 @@ from google import genai
 api_key = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
 
-print("🤖 启动全网雷达：多源抓取、严格24小时、智能去重...")
+print("🤖 启动全网雷达：批量抓取，召唤 AI 主编进行硬核筛选...")
 
-# 2. 【核心魔法：智能防重】读取昨天的历史记录
-seen_urls = set()
-if os.path.exists('data.json'):
-    try:
-        with open('data.json', 'r', encoding='utf-8') as f:
-            old_data = json.load(f)
-            # 把昨天的链接全部加入“黑名单”，今天坚决不抓
-            for item in old_data:
-                seen_urls.add(item.get('url', ''))
-    except Exception as e:
-        print("首次运行或无历史数据，跳过防重检测。")
-
-# 3. 准备抓取：设定 24 小时时间戳，并伪装成真实浏览器
+# 2. 准备抓取：过去 24 小时的时间戳
 yesterday_ts = int(time.time()) - (24 * 3600)
-candidates = []
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AI-Bot/1.0'}
 
-# ================= 来源 A: Hacker News (硬核极客) =================
+# 我们直接从最硬核的 Hacker News 一口气抓取 15 条包含 AI/LLM 的最新热门
 try:
-    hn_url = f"https://hn.algolia.com/api/v1/search?tags=story&numericFilters=created_at_i>{yesterday_ts}"
-    hn_hits = requests.get(hn_url, headers=headers).json().get("hits", [])
-    for hit in hn_hits:
-        url = hit.get("url") or f"https://news.ycombinator.com/item?id={hit.get('objectID')}"
-        if url and url not in seen_urls:
-            candidates.append({"title": hit.get("title"), "url": url, "source": "Hacker News"})
-            break # 只要没见过的第 1 条
-except Exception as e: print(f"HN抓取失败: {e}")
-
-# ================= 来源 B: Reddit Technology (全球大众科技) =================
-try:
-    # t=day 严格限制为过去 24 小时最热
-    reddit_url = "https://www.reddit.com/r/technology/top.json?t=day&limit=5"
-    reddit_hits = requests.get(reddit_url, headers=headers).json()["data"]["children"]
-    for hit in reddit_hits:
-        url = hit["data"].get("url")
-        if url and url not in seen_urls:
-            candidates.append({"title": hit["data"].get("title"), "url": url, "source": "Reddit Tech"})
-            break
-except Exception as e: print(f"Reddit抓取失败: {e}")
-
-# ================= 来源 C: Dev.to (前沿数字工具与开发) =================
-try:
-    # top=1 代表提取每日最热
-    dev_url = "https://dev.to/api/articles?top=1"
-    dev_hits = requests.get(dev_url, headers=headers).json()
-    for hit in dev_hits:
-        url = hit.get("url")
-        if url and url not in seen_urls:
-            candidates.append({"title": hit.get("title"), "url": url, "source": "Dev.to"})
-            break
-except Exception as e: print(f"Dev.to抓取失败: {e}")
-
-# 4. 呼叫大模型进行翻译和通俗化
-final_news_data = []
-
-for item in candidates:
-    print(f"🔄 正在呼叫 AI 处理 [{item['source']}] 的新闻: {item['title']}")
+    url = f"https://hn.algolia.com/api/v1/search?query=AI OR LLM OR model OR release&tags=story&numericFilters=created_at_i>{yesterday_ts}&hitsPerPage=15"
+    hits = requests.get(url).json().get("hits", [])
     
+    candidates_text = ""
+    for i, hit in enumerate(hits):
+        link = hit.get("url") or f"https://news.ycombinator.com/item?id={hit.get('objectID')}"
+        title = hit.get("title", "")
+        candidates_text += f"[{i+1}] {title} (链接: {link})\n"
+        
+    print(f"📡 成功抓取 15 条原始情报。")
+except Exception as e:
+    print(f"❌ 抓取失败: {e}")
+    candidates_text = ""
+
+if candidates_text:
+    print("🧠 正在将 15 条情报交由 AI 主编进行洗稿与筛选...")
+    
+    # 3. 核心魔法：用极其严苛的 Prompt 逼迫大模型做质量控制
     prompt = f"""
-    你现在是一名极简主义科技编辑。
-    请处理以下来自 {item['source']} 的过去24小时内最热科技新闻：
-    标题：{item['title']}
-    链接：{item['url']}
+    你现在是一名极其挑剔的硬核科技主编。
+    以下是过去 24 小时内全网最热的 15 条 AI/科技新闻候选名单：
     
-    请执行：
-    1. 翻译成地道中文标题（拒绝标题党）。
-    2. 用一句话（不超过30字）提炼核心看点(summary)。
-    3. 写一段300字内给普通人看的通俗科普或行业影响分析(article)。
-    4. 严格按以下JSON输出，不要包含其他废话：
-    {{
-        "title": "[{item['source']}] 中文标题",
-        "summary": "一句话总结",
-        "article": "通俗科普内容",
-        "url": "{item['url']}"
-    }}
+    {candidates_text}
+
+    请你执行以下极其严格的筛选和处理任务：
+    1. 【核心过滤】：立刻淘汰所有关于“CEO言论/八卦（比如萨姆·奥特曼说了什么）”、“政策监管”、“某某人演讲”、“每周精选/文章回顾”、“无聊的商业收购”的内容。
+    2. 【精准挑选】：在这 15 条中，只挑出 3 条纯正的“技术突破”、“新模型发布”、“硬核开发工具”、“颠覆性科技事件”。
+    3. 【重写输出】：将这选中的 3 条新闻处理为地道的中文标题，撰写一句硬核总结（summary），以及一段300字内给普通人看的技术原理解析（article）。
+
+    请严格返回如下 JSON 格式数组（不要包含任何 markdown 代码块标记如 ```json，只输出纯纯的 JSON 符号）：
+    [
+        {{
+            "title": "[硬核前沿] 这里写中文标题",
+            "summary": "这里写一句话核心技术总结",
+            "article": "这里写通俗易懂的技术原理解析或应用场景科普",
+            "url": "选中的原文链接"
+        }}
+    ]
     """
     
     try:
@@ -92,15 +60,16 @@ for item in candidates:
             model='gemini-2.5-flash',
             contents=prompt
         )
+        # 清理可能携带的代码块符号
         clean_text = response.text.replace('```json', '').replace('```', '').strip()
-        ai_result = json.loads(clean_text)
-        final_news_data.append(ai_result)
-        print("✅ AI 提炼完成！\n")
-    except Exception as e:
-        print(f"❌ AI 处理时开了个小差: {e}\n")
+        final_news_data = json.loads(clean_text)
         
-    time.sleep(2)
-
-# 5. 保存最新数据，覆盖旧文件
-with open('data.json', 'w', encoding='utf-8') as f:
-    json.dump(final_news_data, f, ensure_ascii=False, indent=4)
+        # 4. 保存最新数据
+        with open('data.json', 'w', encoding='utf-8') as f:
+            json.dump(final_news_data, f, ensure_ascii=False, indent=4)
+        print("✅ AI 主编筛选并生成完毕！文件已更新。")
+        
+    except Exception as e:
+        print(f"❌ AI 处理时开了个小差: {e}")
+else:
+    print("⚠️ 候选列表为空，退出程序。")

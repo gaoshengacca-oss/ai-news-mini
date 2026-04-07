@@ -23,6 +23,8 @@ jobs:
       - name: 运行爬虫脚本
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        # 👑 检查这一行！如果之前没有，请务必加上：
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
         run: python update_news.py
 
       - name: 把更新后的数据推送到网页

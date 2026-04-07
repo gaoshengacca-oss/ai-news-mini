@@ -1,14 +1,14 @@
 [
     {
-        "title": "[Hacker News] 萨姆·奥特曼：塑造未来与信任挑战",
-        "summary": "萨姆·奥特曼对AI未来的影响力及其信任问题引人深思。",
-        "article": "萨姆·奥特曼作为OpenAI的首席执行官，无疑已成为全球科技界最具影响力的人物之一。他领导的OpenAI在人工智能领域取得了突破性进展，尤其是ChatGPT等产品，正以惊人的速度改变着我们的工作、学习乃至生活方式。这篇Hacker News热点文章抛出了一个核心问题：当一个人或一家公司拥有如此塑造未来的巨大力量时，我们应该如何评估他们的可信度？\n\nAI的飞速发展带来了前所未有的机遇，但同时也伴随着巨大的伦理和治理挑战。奥特曼及其团队正在构建的，可能不仅仅是下一个软件工具，而是能够深刻影响人类社会结构的基础设施。文章探讨的“信任”问题并非针对奥特曼个人品格，更多是关于这种中心化权力可能带来的风险：例如，AI的开发方向是否符合全人类的福祉？其决策过程是否透明、负责？一旦AI能力超越预期，谁来确保其安全性和公平性？\n\n对于普通人而言，这意味着我们不能仅仅作为旁观者。理解AI的潜在影响，参与到关于其伦理、监管和未来走向的讨论中，变得日益重要。这不仅关乎OpenAI，也关乎所有掌握颠覆性技术的公司。我们需要一个更广泛、更开放的对话，以确保技术进步能真正造福所有人，而不是将未来托付给少数精英。信任的建立，最终需要透明的机制和广泛的共识。",
-        "url": "https://www.newyorker.com/magazine/2026/04/13/sam-altman-may-control-our-future-can-he-be-trusted"
+        "title": "Russia blocks messengers and VPNs – and its banks too",
+        "url": "https://www.heise.de/en/news/Russia-blocks-messengers-and-VPNs-and-its-banks-too-11246142.html"
     },
     {
-        "title": "[Dev.to] 本周精选文章回顾",
-        "summary": "Dev.to回顾本周热门技术文章，助开发者发现优质内容。",
-        "article": "Dev.to是一个面向全球开发者的开放社区平台，程序员们在这里分享代码、技术教程、开发经验以及对行业趋势的见解。每周，Dev.to团队都会精心挑选出若干篇高质量文章，发布“本周精选”榜单，方便社区成员快速浏览和学习。\n\n这份榜单的意义在于，它为忙碌的开发者提供了一个高效获取新知识的途径。在海量信息中，个人很难筛选出真正有价值的内容，而官方的精选文章就像一个“导航员”，帮助大家聚焦于当前热门或深度剖析的技术点。无论是最新的编程语言特性、前端框架的实践技巧、后端架构的优化思路，还是职业发展建议，这些精选文章都能提供第一手的学习资料和启发。\n\n从更广阔的视角来看，这种社区驱动的内容精选机制，不仅促进了开发者之间的知识共享和学习，也反映了技术领域快速迭代和开放协作的精神。它鼓励更多人贡献优质内容，形成一个良性循环。对于普通人而言，虽然文章内容可能专业，但它体现了现代科技行业通过集体智慧，不断学习、创新和赋能其成员的特点。这种知识的流动和精炼，是推动技术进步不可或缺的一部分，也让整个行业更加充满活力。",
-        "url": "https://dev.to/devteam/top-7-featured-dev-posts-of-the-week-4idc"
+        "title": "StructuredTaskScope beyond toy example dependency-aware kernel bootstrap in Java",
+        "url": "https://blog.arkstack.dev/en/blog/structured-task-scope-beyond-toy-examples/"
+    },
+    {
+        "title": "DeiMOS – A Superoptimizer for the MOS 6502",
+        "url": "https://aransentin.github.io/deimos/"
     }
 ]

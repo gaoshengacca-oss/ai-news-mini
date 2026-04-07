@@ -3,82 +3,83 @@ import json
 import time
 import requests
 import re
-from google import genai
 
-# 1. 密钥与客户端
-api_key = os.environ.get("GEMINI_API_KEY")
-client = genai.Client(api_key=api_key)
+# 1. 获取智谱 API Key (确保你在 GitHub Secrets 里配置的名字是这个)
+zhipu_key = os.environ.get("ZHIPU_API_KEY")
 
-print("🤖 启动生存主义雷达：只抓 15 条，死守额度...")
+print("🤖 启动全能自愈雷达：优先调用智谱 GLM-4-Flash...")
 
-# 2. 抓取逻辑
+# 2. 抓取逻辑：从 Hacker News 获取过去 24 小时最火的 20 条新闻
 yesterday_ts = int(time.time()) - (24 * 3600)
 url = "https://hn.algolia.com/api/v1/search_by_date"
-params = {"tags": "story", "numericFilters": f"created_at_i>{yesterday_ts}", "hitsPerPage": 15}
+params = {
+    "tags": "story", 
+    "numericFilters": f"created_at_i>{yesterday_ts}", 
+    "hitsPerPage": 20
+}
 
-candidates = []
+candidates_text = ""
 try:
     res = requests.get(url, params=params, timeout=10)
     hits = res.json().get("hits", [])
     for i, hit in enumerate(hits):
-        candidates.append({
-            "id": i+1,
-            "title": hit.get("title", "无标题"),
-            "url": hit.get("url") or f"https://news.ycombinator.com/item?id={hit['objectID']}"
-        })
-    print(f"📡 成功带回 {len(candidates)} 条候选。")
+        # 提取标题和链接
+        title = hit.get('title', '无标题')
+        link = hit.get('url') or f"https://news.ycombinator.com/item?id={hit['objectID']}"
+        candidates_text += f"{i+1}. {title} (URL: {link})\n"
+    print(f"📡 抓取完成，共 {len(hits)} 条候选新闻。")
 except Exception as e:
-    print(f"❌ 抓取失败: {e}")
+    print(f"❌ 原始数据抓取失败: {e}")
 
-if candidates:
-    # 3. 极度克制的投喂
-    # 我们只把序号和标题发给 AI，不发链接，省下巨额 Token！
-    pool_text = ""
-    for c in candidates:
-        pool_text += f"{c['id']}. {c['title']}\n"
+# 3. 智谱 AI 调用函数（核心逻辑：把新闻发给 GLM-4-Flash）
+def call_zhipu_ai(prompt_text):
+    api_url = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {zhipu_key}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": "glm-4-flash", # 智谱家性价比最高的型号
+        "messages": [{"role": "user", "content": prompt_text}],
+        "temperature": 0.3
+    }
+    try:
+        response = requests.post(api_url, headers=headers, json=payload, timeout=30)
+        return response.json()['choices'][0]['message']['content']
+    except Exception as e:
+        print(f"❌ 智谱 AI 响应异常: {e}")
+        return None
 
-    print("⏳ 进入 20s 深度睡眠，躲避谷歌额度检查...")
-    time.sleep(20) 
-    
-    print("🧠 召唤 2.0-Flash 主编进行硬核筛选...")
-    
+# 4. 如果抓到了新闻，就开始让 AI 工作
+if candidates_text:
     prompt = f"""
-    你是硬核科技主编。从下面标题中选3个最硬核的技术突破，严格输出JSON。
-    不要八卦，不要CEO言论。
+    你现在是一名硬核科技主编。请从下列标题中选出 3 个真正代表技术突破、新产品发布或硬核研究的新闻。
     
-    【候选标题】：
-    {pool_text}
-
-    【输出格式】：
+    【强制要求】：
+    1. 剔除所有 CEO 访谈、八卦、融资、政策法规、文章回顾。
+    2. 将选中的 3 条处理为中文，并严格按以下 JSON 数组格式输出：
     [
-        {{"index": 选中序号, "title": "地道中文标题", "summary": "硬核总结", "article": "300字通俗科普"}}
+        {{"title": "地道中文标题", "summary": "一句话技术看点", "article": "300字内通俗解析", "url": "原文链接"}}
     ]
+    
+    【候选名单】：
+    {candidates_text}
     """
     
-    try:
-        # 回归 2.0，因为它的地址在库里最稳
-        response = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
-        
-        match = re.search(r'\[.*\]', response.text, re.DOTALL)
+    print("🧠 正在通过智谱 AI 进行硬核筛选与翻译...")
+    ai_content = call_zhipu_ai(prompt)
+    
+    if ai_content:
+        # 使用正则表达式精准抠出 JSON 部分
+        match = re.search(r'\[.*\]', ai_content, re.DOTALL)
         if match:
-            # 4. 二次对齐：根据 AI 选的序号，把对应的 URL 补回来
-            ai_data = json.loads(match.group(0))
-            final_data = []
-            for item in ai_data:
-                # 找到原始链接
-                idx = item.get("index", 1) - 1
-                original_url = candidates[idx]["url"] if idx < len(candidates) else "#"
-                final_data.append({
-                    "title": item["title"],
-                    "summary": item["summary"],
-                    "article": item["article"],
-                    "url": original_url
-                })
-            
-            with open('data.json', 'w', encoding='utf-8') as f:
-                json.dump(final_data, f, ensure_ascii=False, indent=4)
-            print("✅ 任务完美达成！额度保住了，数据更新了。")
+            try:
+                final_data = json.loads(match.group(0))
+                # 写入 data.json，这就是网页读取的文件
+                with open('data.json', 'w', encoding='utf-8') as f:
+                    json.dump(final_data, f, ensure_ascii=False, indent=4)
+                print("✅ 任务圆满完成！网页数据已更新。")
+            except Exception as e:
+                print(f"❌ JSON 转换失败: {e}")
         else:
-            print("❌ AI 没按格式说话。")
-    except Exception as e:
-        print(f"❌ AI 环节还是报错: {e}")
+            print("❌ AI 返回内容中没找到有效的 JSON 数组。")

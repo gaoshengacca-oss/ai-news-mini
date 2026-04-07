@@ -7,63 +7,74 @@ import re
 # 1. 获取密钥
 zhipu_key = os.environ.get("ZHIPU_API_KEY")
 
-print("🤖 启动全能自愈雷达：调试版...")
+def call_zhipu_ai(prompt_text):
+    api_url = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+    headers = {"Authorization": f"Bearer {zhipu_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": "glm-4-flash",
+        "messages": [{"role": "user", "content": prompt_text}],
+        "temperature": 0.2 # 👑 降低随机性，让 AI 严格守规矩
+    }
+    try:
+        res = requests.post(api_url, headers=headers, json=payload, timeout=60)
+        return res.json()['choices'][0]['message']['content']
+    except Exception as e:
+        print(f"❌ AI 呼叫失败: {e}")
+        return None
 
 # 2. 抓取逻辑 (保持不变)
+print("📡 正在抓取新鲜情报...")
 yesterday_ts = int(time.time()) - (24 * 3600)
 url = "https://hn.algolia.com/api/v1/search_by_date"
 params = {"tags": "story", "numericFilters": f"created_at_i>{yesterday_ts}", "hitsPerPage": 20}
 
-candidates_text = ""
+candidates = ""
 try:
-    res = requests.get(url, params=params, timeout=10)
-    hits = res.json().get("hits", [])
-    for i, hit in enumerate(hits):
-        title = hit.get('title', '无标题')
-        link = hit.get('url') or f"https://news.ycombinator.com/item?id={hit['objectID']}"
-        candidates_text += f"{i+1}. {title} (URL: {link})\n"
-    print(f"📡 抓取完成，共 {len(hits)} 条候选。")
-except Exception as e:
-    print(f"❌ 抓取失败: {e}")
+    hits = requests.get(url, params=params).json().get("hits", [])
+    for i, h in enumerate(hits):
+        candidates += f"ID:{i} | Title: {h['title']} | URL: {h.get('url','#')}\n"
+except: print("抓取异常")
 
-# 3. 智谱 AI 调用函数（增加了排错逻辑）
-def call_zhipu_ai(prompt_text):
-    api_url = "https://open.bigmodel.cn/api/paas/v4/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {zhipu_key}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "glm-4-flash",
-        "messages": [{"role": "user", "content": prompt_text}],
-        "temperature": 0.3
-    }
-    try:
-        response = requests.post(api_url, headers=headers, json=payload, timeout=30)
-        res_json = response.json()
-        
-        # 👑 核心调试代码：如果报错了，把全家福打印出来
-        if response.status_code != 200:
-            print(f"❌ 智谱接口返回错误状态码: {response.status_code}")
-            print(f"❌ 错误详情: {res_json}")
-            return None
-            
-        return res_json['choices'][0]['message']['content']
-    except Exception as e:
-        print(f"❌ 调用智谱时发生系统级异常: {e}")
-        return None
-
-# 4. 执行任务
-if candidates_text:
-    prompt = "你是硬核科技主编，请从下列标题选3个最硬核的技术突破，严格输出JSON数组格式。"
-    print("🧠 正在通过智谱 AI 进行硬核筛选...")
-    ai_content = call_zhipu_ai(prompt + "\n" + candidates_text)
+# 3. AI 筛选 (强化 Prompt)
+if candidates:
+    # 👑 这里是核心：给 AI 的“死命令”
+    strict_prompt = f"""
+    你是一名硬核科技编辑。请从以下新闻中选出3条最硬核的技术新闻。
     
-    if ai_content:
-        match = re.search(r'\[.*\]', ai_content, re.DOTALL)
+    【任务要求】：
+    1. 必须将标题翻译成地道的【中文】。
+    2. 撰写中文总结(summary)和科普解析(article)。
+    3. 严格输出 JSON 数组格式，禁止任何开头结尾的废话。
+    
+    【JSON 格式模板】：
+    [
+      {{
+        "title": "中文标题",
+        "summary": "一句话核心技术看点",
+        "article": "300字内深度解析",
+        "url": "对应的原始链接"
+      }}
+    ]
+
+    【候选名单】：
+    {candidates}
+    """
+    
+    print("🧠 正在进行深度翻译与筛选...")
+    ai_reply = call_zhipu_ai(strict_prompt)
+    
+    if ai_reply:
+        # 使用正则提取，防止 AI 加废话
+        match = re.search(r'\[.*\]', ai_reply, re.DOTALL)
         if match:
-            with open('data.json', 'w', encoding='utf-8') as f:
-                json.dump(json.loads(match.group(0)), f, ensure_ascii=False, indent=4)
-            print("✅ 任务圆满完成！")
+            try:
+                json_str = match.group(0)
+                final_data = json.loads(json_str)
+                # 写入文件
+                with open('data.json', 'w', encoding='utf-8') as f:
+                    json.dump(final_data, f, ensure_ascii=False, indent=4)
+                print("✅ 网页数据已成功更新！")
+            except:
+                print("❌ AI 返回的 JSON 格式解析失败")
         else:
-            print(f"❌ 未在 AI 回复中找到 JSON。AI 原话是：{ai_content[:100]}...")
+            print("❌ AI 未按要求返回 JSON 数组")

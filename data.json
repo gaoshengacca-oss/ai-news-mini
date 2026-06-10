@@ -1,20 +1,20 @@
 [
     {
-        "title": "《PolyHelper》横空出世：十AI协同的智能外骨骼引领未来",
-        "summary": "PolyHelper智能外骨骼通过十AI协同，实现自我进化和人机交互的突破。",
-        "article": "PolyHelper智能外骨骼的底层逻辑是通过集成多个AI模块，实现对外骨骼动作的精准控制和自我学习。这些AI模块包括运动控制、感知、决策和交互等，通过深度学习和强化学习算法，PolyHelper能够不断优化其动作模式，以适应不同的使用场景和用户需求。这种技术的颠覆性影响在于，它不仅能够帮助残疾人士恢复行动能力，还能在工业生产、军事训练等领域发挥巨大作用。未来，PolyHelper有望成为人们日常生活中不可或缺的辅助工具，改变人们的生活方式，提高工作效率，甚至可能成为未来战争和救援行动的重要装备。",
-        "url": "https://github.com/PolyHelper/polyhelper"
+        "title": "量子化语言模型：GGUF、GPTQ与AWQ的较量",
+        "summary": "GGUF、GPTQ和AWQ三种语言模型量化技术，为大型语言模型在资源受限设备上的应用提供了新的可能性。",
+        "article": "底层逻辑上，GGUF、GPTQ和AWQ都是通过降低模型参数的精度来减小模型大小，从而使得大型语言模型能够在资源受限的设备上运行。GGUF通过逐层量化，GPTQ通过量化注意力机制，而AWQ则通过量化词嵌入和注意力机制。这些技术不仅减少了模型的存储需求，还保持了模型在性能上的稳定性。对当前行业现状的颠覆性影响在于，它们使得移动设备、嵌入式系统等资源受限设备上的AI应用成为可能，为AI的普及和应用开辟了新的道路。未来，这些技术可能会改变普通人的生活，让每个人都能在个人设备上使用到强大的AI服务，如智能助手、个性化推荐等，从而极大地提升日常生活的智能化水平。",
+        "url": "https://vettedconsumer.com/gguf-vs-gptq-vs-awq-the-plain-english-guide-to-llm-quantization-and-which-one-to-pick/"
     },
     {
-        "title": "《Claude Fable 5》发布：AI安全寓言引领AI伦理新篇章",
-        "summary": "Claude Fable 5通过AI安全寓言，探讨AI伦理问题，引领AI伦理新篇章。",
-        "article": "Claude Fable 5的底层逻辑是通过寓言故事的形式，探讨AI在伦理、安全和社会责任等方面的挑战。这些寓言故事不仅生动有趣，而且深入浅出地揭示了AI技术可能带来的风险和问题。这种技术的颠覆性影响在于，它能够提高公众对AI伦理问题的认识，促进AI技术的健康发展。未来，Claude Fable 5有望成为AI伦理教育和研究的重要工具，推动AI技术的伦理规范和标准制定，为构建一个更加安全、公正和可持续的AI未来奠定基础。",
-        "url": "https://www.interconnects.ai/p/claude-fable-5-and-new-ai-safety"
+        "title": "Nodrix：将开源物联网云部署到自己的Cloudflare账户",
+        "summary": "Nodrix允许用户将开源物联网云服务部署到自己的Cloudflare账户，实现更灵活、安全的物联网解决方案。",
+        "article": "Nodrix的工作原理是将物联网设备的数据通过Cloudflare的全球网络进行传输和处理，从而实现数据的实时监控和分析。这种部署方式不仅提高了数据传输的效率，还通过Cloudflare的DDoS防护能力增强了系统的安全性。对当前行业现状的颠覆性影响在于，它打破了传统物联网云服务的限制，允许用户根据自己的需求定制物联网解决方案，降低了物联网项目的成本和复杂性。未来，Nodrix可能会改变普通人的生活，使得家庭、企业等用户能够轻松地构建和管理自己的物联网系统，从而推动物联网技术的普及和应用。",
+        "url": "https://github.com/decoded-cipher/nodrix"
     },
     {
-        "title": "《Preserving Any Game with Codex》横空出世：游戏保存技术革新",
-        "summary": "通过Codex技术，任何游戏都可以被永久保存，实现游戏文化的传承。",
-        "article": "Preserving Any Game with Codex的底层逻辑是通过先进的游戏保存技术，将游戏数据转化为可永久保存的数字格式。这种技术不仅能够保存游戏本身，还能保存游戏中的所有元素，包括玩家数据、游戏进度、游戏环境等。这种技术的颠覆性影响在于，它打破了游戏易逝性的限制，使得游戏文化得以传承。未来，Preserving Any Game with Codex有望成为游戏产业的重要技术，推动游戏文化的创新和发展，为玩家提供更加丰富和持久的游戏体验。",
-        "url": "https://twitter.com/ongestalte/status/2064477218802131116"
+        "title": "Visa将支付网络集成到ChatGPT，让AI代理为用户购物和支付",
+        "summary": "Visa将支付网络集成到ChatGPT，使得AI代理能够为用户进行购物和支付，标志着AI在金融服务领域的重大突破。",
+        "article": "Visa的这项技术通过将支付功能集成到ChatGPT中，实现了AI代理的购物和支付功能。用户可以通过与ChatGPT的交互来发起购物和支付请求，而ChatGPT则通过Visa的支付网络完成交易。这种集成方式不仅简化了用户的支付流程，还提高了支付的安全性。对当前行业现状的颠覆性影响在于，它将AI与金融服务相结合，为用户提供了一种全新的支付体验。未来，这项技术可能会改变普通人的生活，让支付变得更加便捷、安全，同时为金融机构提供新的业务增长点。",
+        "url": "https://finance.yahoo.com/sectors/technology/articles/visa-plugs-payment-network-chatgpt-180150542.html"
     }
 ]

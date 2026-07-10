@@ -1,20 +1,20 @@
 [
     {
-        "title": "量子计算新纪元：量子芯片突破实现量子比特数翻倍",
-        "summary": "量子芯片技术实现量子比特数翻倍，量子计算迈入新纪元。",
-        "article": "量子计算的核心在于量子比特（qubit），它能够同时表示0和1的状态，从而实现并行计算。传统的量子芯片由于量子比特数限制，计算能力受到很大制约。最新的量子芯片技术通过优化量子比特的稳定性和互操作性，成功将量子比特数翻倍，这意味着量子计算机的并行计算能力得到了显著提升。这一突破对当前行业现状的颠覆性影响在于，它使得量子计算机在处理复杂计算任务时，如药物研发、材料科学等领域，具有传统计算机无法比拟的优势。未来，量子计算有望在人工智能、密码学等领域引发革命性变革，改变普通人的生活，例如加速新药研发、提高网络安全等。",
-        "url": "https://www.researchgate.net/publication/352612677_Quantum-Computing-Quantum-Chip-Technology-Realizes-the-Doubling-of-the-Number-of-Quantum-Bits"
+        "title": "GPT-5.6 Luna：颠覆性AI推理能力，成本降低至1/25",
+        "summary": "GPT-5.6 Luna在健康推理上超越GPT-5.5，同时成本仅为1/25。",
+        "article": "GPT-5.6 Luna的底层逻辑基于深度学习，通过海量数据训练，使其在自然语言处理和推理方面达到前所未有的水平。其核心在于改进了神经网络架构，特别是针对健康领域的特定数据集进行了优化，使得模型在处理复杂医疗信息时更加准确。这一技术的颠覆性影响在于，它将极大地推动医疗健康领域的发展，使得AI辅助诊断和治疗成为可能。未来，GPT-5.6 Luna有望改变普通人的生活，通过智能医疗系统提供个性化的健康建议，甚至实现远程医疗诊断，从而提高医疗服务的可及性和效率。",
+        "url": "https://twitter.com/OpenAI/status/2075686461693898868"
     },
     {
-        "title": "人工智能新里程碑：GPT 5.6 Sol 超越 DeepSWE，成本降低61%",
-        "summary": "GPT 5.6 Sol 在深度学习竞赛中超越 DeepSWE，成本降低61%，人工智能迈向新高度。",
-        "article": "GPT 5.6 Sol 是 OpenAI 最新研发的人工智能模型，它在深度学习竞赛中表现出色，超越了之前的 DeepSWE 模型。这一突破的关键在于，GPT 5.6 Sol 在保持高性能的同时，将成本降低了61%。这一技术对当前行业现状的颠覆性影响在于，它使得人工智能技术更加普及和可负担，为各行各业提供了强大的智能支持。未来，GPT 5.6 Sol 有望在自然语言处理、图像识别等领域发挥重要作用，改变普通人的生活，例如提供更智能的客服、更精准的推荐系统等。",
-        "url": "https://deepswe.datacurve.ai/"
+        "title": "以太坊AI特工：发现libp2p漏洞，开启智能安全新纪元",
+        "summary": "以太坊部署AI特工猎杀漏洞，意外发现libp2p关键漏洞。",
+        "article": "以太坊AI特工的底层逻辑是利用机器学习算法分析代码，自动识别潜在的安全风险。这种技术通过模拟黑客攻击的方式，提前发现并修复系统漏洞，从而提高区块链系统的安全性。这一突破对当前区块链行业现状的颠覆性影响在于，它将AI技术引入到网络安全领域，极大地提升了安全防护能力。未来，AI特工的应用将扩展到更多领域，如金融、物联网等，通过智能化的安全解决方案，保护数据安全和隐私。",
+        "url": "https://thecoinheadlines.com/tech-and-ai/ethereum-deploys-ai-agents-to-hunt-bugs-discovers-libp2p-vulnerability/article-25686/"
     },
     {
-        "title": "传感器FM：可穿戴健康数据通用智能接口，开启健康管理新时代",
-        "summary": "SensorFM 可穿戴健康数据通用智能接口，实现个人健康数据智能管理，开启健康管理新时代。",
-        "article": "SensorFM 是一款基于可穿戴设备的健康数据通用智能接口，它能够收集和分析用户的生理数据，如心率、睡眠质量等，并提供个性化的健康建议。这一技术的底层逻辑在于，通过先进的传感器技术和数据分析算法，将用户的健康数据转化为可操作的智能信息。对当前行业现状的颠覆性影响在于，它改变了传统健康管理方式，使得个人健康数据更加透明和可管理。未来，SensorFM 有望成为个人健康管理的重要工具，帮助人们更好地了解自己的健康状况，从而改善生活质量。",
-        "url": "https://research.google/blog/sensorfm-towards-a-general-intelligence-and-interface-for-wearable-health-data/"
+        "title": "Space Mirror卫星：颠覆传统天文观测，开启太空探索新篇章",
+        "summary": "FCC批准Reflect Orbital的Space Mirror卫星，引发天文学家争议。",
+        "article": "Space Mirror卫星的底层逻辑是通过反射太阳光，在太空中形成巨大的镜子，用于收集和分析宇宙中的光线。这种技术颠覆了传统的天文观测方式，使得地面望远镜能够观测到更远、更暗的天体。这一突破对当前天文观测的颠覆性影响在于，它将极大地扩展人类对宇宙的认知边界。未来，Space Mirror卫星的应用将推动天文学的发展，可能发现新的天体和宇宙现象，甚至为人类探索太空提供新的途径。",
+        "url": "https://www.pcmag.com/news/fcc-approves-reflect-orbitals-giant-mirror-satellite-that-astronomers-hate"
     }
 ]
